@@ -8,10 +8,11 @@ export class BoardsWrapper extends React.Component {
 		super(props);
 		this.state = {
 			boards: [
-				{id: 1,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: false},
-				{id: 2,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: true},
-				{id: 3,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: false},
-			],	
+				{id: 1,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: false, ownerId: 2},
+				{id: 2,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: true, ownerId: 1},
+				{id: 3,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: true, ownerId: 2},
+			],
+			userId: 1	
 		}
 	}
 	boardsList() {
@@ -19,6 +20,7 @@ export class BoardsWrapper extends React.Component {
 			<Board 
 				key={board.id}
 				board={board}
+				userId={this.state.userId}
 				onClick={(i) => this.addNewMessageToBoard(i)} />
 		);
 		return (

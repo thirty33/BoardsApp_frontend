@@ -14,6 +14,7 @@ export function Board(props) {
 			message= {message.message_title}
 		/>
 	);
+	const showButton = !props.board.isPrivate || (props.board.ownerId === props.userId);
 	return (
 		<div className="boardBox">
 			<div className="boardTitle"> {props.board.title}</div>
@@ -22,7 +23,7 @@ export function Board(props) {
 			</div>
 			<div className="boardActions">
 				<div className="buttonContainer">
-					{!props.board.isPrivate &&
+					{showButton &&
 						<button
 							onClick={() => props.onClick(props.board.id)} 
 							className="saveMessageButton">+
