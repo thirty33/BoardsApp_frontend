@@ -7,16 +7,18 @@ function Message(props) {
 
 
 export function Board(props) {
+	const messages = props.messages;
+	const listMessages = messages.map((message) => 
+		<Message 
+			key={message.message_title}
+			message= {message.message_title}
+		/>
+	);
 	return (
 		<div className="boardBox">
 			<div className="boardTitle"> {props.title}</div>
 			<div className="boardMessages">
-				<Message message="this is a message" />
-				<Message message="this is a message" />
-				<Message message="this is a message" />
-				<Message message="this is a message" />
-				<Message message="this is a message" />
-				<Message message="this is a message" />
+				{listMessages}
 			</div>
 		</div>
 	);
