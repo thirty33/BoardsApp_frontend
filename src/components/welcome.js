@@ -12,6 +12,8 @@ export class BoardsWrapper extends React.Component {
 				{id: 2, title:'board_title_two', messages: [{id:1, message_title: 'mTitle_four'},{id:2,message_title: 'mTitle_five'}]},
 				{id: 3,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
 				{id: 4,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
+				// {id: 5,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
+				// {id: 6,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
 			],
 		}
 	}
@@ -25,6 +27,11 @@ export class BoardsWrapper extends React.Component {
 		return (
 			<div className="boardsWrapper">
 				{list}
+				<button 
+					className="addBoardButton"
+					onClick={() => this.addBoard()}
+					>Add Board
+				</button>
 			</div>
 		);
 	}
@@ -41,6 +48,15 @@ export class BoardsWrapper extends React.Component {
 		// console.log('show concat messages', currentBoard);
 		this.setState({
 			boards : boards
+		});
+	}
+	addBoard() {
+		const boards = this.state.boards.slice();
+		const newBoardId = boards.length + 1;
+		const newBoard = {id: newBoardId,title:'board_title_new', messages: []};
+		boards.push(newBoard);
+		this.setState({
+			boards: boards
 		});
 	}
 }
