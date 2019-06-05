@@ -31,6 +31,16 @@
 
 .messageBox {
 	color: white;
-	text-align: center;
+	/* text-align: center; */
 	background-color: blue;
+	display:grid;
+	grid-template-columns: 3fr 1fr;
+	/* grid-gap: 15px; */
+}
+
+.messageActions {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	justify-content: center;
+	align-content: center;
 }

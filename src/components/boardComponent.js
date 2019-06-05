@@ -2,7 +2,15 @@ import React from 'react';
 import '../style/boardstyle.css';
 
 function Message(props) {
-	return <h3 className="messageBox">Hola, {props.message}</h3>;
+	return <div className="messageBox">
+			<div className="messageBody">
+				<h3>{props.message.message_title}</h3>
+			</div>
+			<div className="messageActions">
+				<button onClick={() => props.deleteMessage(props.message.id)}>delete</button>
+				<button onClick={() => props.viewMessageDetail(props.message.id)}>observe</button>
+			</div>
+		</div>;
 }
 
 
@@ -11,7 +19,9 @@ export function Board(props) {
 	const listMessages = messages.map((message) => 
 		<Message 
 			key={message.id}
-			message= {message.message_title}
+			message= {message}
+			deleteMessage={(i) => props.deleteMessage({message_id: i, board_id: props.board.id})}
+			viewMessageDetail={(i) => props.viewMessageDetail({message_id: i, board_id: props.board.id})}
 		/>
 	);
 	const showButton = !props.board.isPrivate || (props.board.ownerId === props.userId);

@@ -21,7 +21,9 @@ export class BoardsWrapper extends React.Component {
 				key={board.id}
 				board={board}
 				userId={this.state.userId}
-				onClick={(i) => this.addNewMessageToBoard(i)} />
+				onClick={(i) => this.addNewMessageToBoard(i)}
+				deleteMessage={(i) => this.deleteMessage(i)}
+				viewMessageDetail={(i) => this.viewMessageDetail(i)} />
 		);
 		return (
 			<div className="boardsWrapper">
@@ -41,7 +43,9 @@ export class BoardsWrapper extends React.Component {
 		// console.log('Is handle function',i);
 		const boards = this.state.boards.slice();
 		const currentBoard = boards[i-1]; 
+
 		const newMessageId = currentBoard.messages.length + 1;
+		console.log('new message index', newMessageId);
 		var newMessage = {id:newMessageId, message_title: 'newMessageTitle'};
 		currentBoard.messages.push(newMessage);
 		// console.log('show concat messages', currentBoard);
@@ -57,5 +61,23 @@ export class BoardsWrapper extends React.Component {
 		this.setState({
 			boards: boards
 		});
+	}
+	deleteMessage(i) {
+		console.log('Deleting message', i.message_id, i.board_id);
+		const boards = this.state.boards.slice();
+		const currentBoard = boards[i.board_id - 1];
+		
+		for(var y = 0; y < currentBoard.messages.length; y++) { 
+			if (currentBoard.messages[y].id === i.message_id) {
+				currentBoard.messages.splice(y, 1); 
+				y--;
+			}
+		}
+		this.setState({
+			boards : boards,
+		});
+	}
+	viewMessageDetail(i) {
+		console.log('view Message detail', i.message_id, i.board_id);
 	}
 }
