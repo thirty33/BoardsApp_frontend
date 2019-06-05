@@ -8,13 +8,10 @@ export class BoardsWrapper extends React.Component {
 		super(props);
 		this.state = {
 			boards: [
-				{id: 1,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
-				{id: 2, title:'board_title_two', messages: [{id:1, message_title: 'mTitle_four'},{id:2,message_title: 'mTitle_five'}]},
-				{id: 3,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
-				{id: 4,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
-				// {id: 5,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
-				// {id: 6,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}]},
-			],
+				{id: 1,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: false},
+				{id: 2,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: true},
+				{id: 3,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one'}], isPrivate: false},
+			],	
 		}
 	}
 	boardsList() {

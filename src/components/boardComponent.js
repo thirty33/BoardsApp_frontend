@@ -22,10 +22,12 @@ export function Board(props) {
 			</div>
 			<div className="boardActions">
 				<div className="buttonContainer">
-					<button
-						onClick={() => props.onClick(props.board.id)} 
-						className="saveMessageButton">+
-					</button>
+					{!props.board.isPrivate &&
+						<button
+							onClick={() => props.onClick(props.board.id)} 
+							className="saveMessageButton">+
+						</button>
+					}
 				</div>
 			</div>
 		</div>
