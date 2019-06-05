@@ -1,21 +1,36 @@
 .boardBox {
-    background-color: red;
-    display: grid;
-    grid-gap: 0;
-    grid-template-rows: 0.3fr 1fr;
+	background-color: red;
+	display: grid;
+	grid-gap: 0;
+	grid-template-rows: 0.3fr 1fr 0.2fr;
 }
 
 .boardTitle {
-    text-align: center;
-    color: white;
-    text-transform: capitalize;
+	text-align: center;
+	color: white;
+	text-transform: capitalize;
 }
 
 .boardMessages {
-    overflow-y: scroll;
+	overflow-y: scroll;
 }
+
+.boardActions {
+	/* background-color: violet; */
+	display: grid;
+	grid-template-columns: repeat(4,1fr);
+}	
+
+.buttonContainer {
+	grid-column: 4;
+	display: grid;
+	align-items: center;
+	align-content: center;
+	/* background-color: blue; */
+}
+
 .messageBox {
-    color: white;
-    text-align: center;
-    background-color: blue;
+	color: white;
+	text-align: center;
+	background-color: blue;
 }

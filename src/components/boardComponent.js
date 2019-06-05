@@ -7,18 +7,26 @@ function Message(props) {
 
 
 export function Board(props) {
-	const messages = props.messages;
+	const messages = props.board.messages;
 	const listMessages = messages.map((message) => 
 		<Message 
-			key={message.message_title}
+			key={message.id}
 			message= {message.message_title}
 		/>
 	);
 	return (
 		<div className="boardBox">
-			<div className="boardTitle"> {props.title}</div>
+			<div className="boardTitle"> {props.board.title}</div>
 			<div className="boardMessages">
 				{listMessages}
+			</div>
+			<div className="boardActions">
+				<div className="buttonContainer">
+					<button
+						onClick={() => props.onClick(props.board.id)} 
+						className="saveMessageButton">+
+					</button>
+				</div>
 			</div>
 		</div>
 	);

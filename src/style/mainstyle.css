@@ -1,4 +1,5 @@
 .boardsWrapper {
+    height: 100vh;
     background-color: aqua;
     display: grid;
     grid-template-columns: 1fr 1fr;
