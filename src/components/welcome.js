@@ -7,9 +7,9 @@ export class BoardsWrapper extends React.Component {
 		super(props);
 		this.state = {
 			boards: [
-				{id: 1,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one', creatorId:1}], isPrivate: false, ownerId: 2},
-				{id: 2,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one', creatorId:1}], isPrivate: true, ownerId: 1},
-				{id: 3,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one', creatorId:2}], isPrivate: true, ownerId: 2},
+				{id: 1,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one', message_subject:'', creatorId:1}], isPrivate: false, ownerId: 2},
+				{id: 2,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one', message_subject:'', creatorId:1}], isPrivate: true, ownerId: 1},
+				{id: 3,title:'board_title_one', messages: [{id: 1,message_title: 'mTitle_one', message_subject:'', creatorId:2}], isPrivate: true, ownerId: 2},
 			],
 			currentBoardId: 1,
 			userId: 1,
@@ -17,7 +17,8 @@ export class BoardsWrapper extends React.Component {
 			messageModel: {title: 'title', subject: 'subject'},
 			title: '',
 			subject: '',
-			messageToSend: {}
+			messageToSend: {},
+			isDetailView: false
 		}
 	}
 	boardsList() {
@@ -35,7 +36,8 @@ export class BoardsWrapper extends React.Component {
 				handleModalChanges={(e) => this.handleModalChanges(e)}
 				messageModel={this.state.messageModel} 
 				messageToSend={this.state.messageToSend}
-				currentBoardId={this.state.currentBoardId}/>
+				currentBoardId={this.state.currentBoardId}
+				isDetailView={this.state.isDetailView}/>
 		);
 		return (
 			<div className="boardsWrapper">
@@ -56,6 +58,8 @@ export class BoardsWrapper extends React.Component {
 		const boards = this.state.boards.slice();
 		const currentBoard = boards[i-1]; 
 		this.setState({
+			isDetailView : false,
+			messageToSend : {},
 			currentBoardId : currentBoard.id,
 			modalIsVisible : true
 		})
@@ -65,7 +69,13 @@ export class BoardsWrapper extends React.Component {
 		const boards = this.state.boards.slice();
 		const currentBoard = boards[i-1]; 
 		const newMessageId = currentBoard.messages[currentBoard.messages.length - 1].id + 1;
-		var newMessage = {id:newMessageId, message_title: this.state.title ,creatorId:1};
+		var newMessage = 
+		{
+			id:newMessageId,
+			message_title: this.state.title,
+			message_subject: this.state.subject,
+			creatorId:1
+		};
 		currentBoard.messages.push(newMessage);
 
 		this.setState({
@@ -110,5 +120,13 @@ export class BoardsWrapper extends React.Component {
 	}
 	viewMessageDetail(i) {
 		console.log('view Message detail', i.message_id, i.board_id);
+		const boards = this.state.boards.slice();
+		const currentMessage = boards[i.board_id - 1].messages[i.message_id - 1];
+		console.log('current message', currentMessage.message_title,currentMessage.message_subject); 
+		this.setState({
+			messageToSend : {title : currentMessage.message_title, subject : currentMessage.message_subject},
+			isDetailView : true,
+			modalIsVisible : true
+		});
 	}
 }

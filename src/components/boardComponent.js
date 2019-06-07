@@ -55,7 +55,8 @@ export function Board(props) {
 					saveObject={(e, id) => props.saveObject(e, id)}
 					handleInputChange={(e) => props.handleModalChanges(e)}
 					messageModel={props.messageModel}
-					messageToSend={props.messageToSend}/>
+					messageToSend={props.messageToSend}
+					isDetailView={props.isDetailView}/>
 			}
 		</div>
 	);
