@@ -1,3 +1,26 @@
+.mainContainer {
+	display: grid;
+	grid-template-rows: .5fr 4fr;
+	grid-gap: 0;
+}
+
+.siteHeader {
+	display: grid;
+	grid-gap: 0;
+	grid-template-rows: 1fr 2fr 1fr;
+	grid-template-columns: 1fr 8fr 1fr;
+}
+
+.loginButton {
+	grid-column: 3;
+	grid-row: 2;
+}
+
+.titleApp {
+	grid-column: 2;
+	grid-row: 2;
+}
+
 .boardsWrapper {
 	background-color: aqua;
 	display: grid;

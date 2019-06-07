@@ -1,6 +1,7 @@
 import React from 'react';
 import {MessageDetailView} from './messageDetailView';
 import {BoardForm} from './boardModalForm';
+import {LoginForm} from './loginModalForm';
 import '../style/boardstyle.css';
 
 function Message(props) {
@@ -48,7 +49,7 @@ export function Board(props) {
 					}
 				</div>
 			</div>
-			{(props.modalIsVisible && !props.isBoardForm) &&
+			{(props.modalIsVisible && !props.isBoardForm && !props.isLoginForm) &&
 			<MessageDetailView 
 				modal={{propertyOne: 'Joel Gustavo'}}
 				boardId={props.currentBoardId}
@@ -59,13 +60,21 @@ export function Board(props) {
 				messageToSend={props.messageToSend}
 				isDetailView={props.isDetailView}/>
 			}
-			{(props.modalIsVisible && props.isBoardForm) &&
+			{(props.modalIsVisible && props.isBoardForm && !props.isLoginForm) &&
 			<BoardForm 
 				closeView={() => props.closeModal()}
 				boardModel={props.boardModel}
 				boardToSend={props.boardToSend}
 				handleInputChange={(e) => props.handleModalChanges(e)}
 				saveObject={(e) => props.addBoard(e)}
+				/>
+			}
+			{(props.modalIsVisible && props.isLoginForm) &&
+			<LoginForm 
+				loginModel={props.loginModel}
+				closeView={() => props.closeModal()}
+				handleInputChange={(e) => props.handleModalChanges(e)}
+				saveObject={(e) => props.signIn(e)}
 				/>
 			}
 		</div>

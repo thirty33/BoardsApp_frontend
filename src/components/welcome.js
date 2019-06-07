@@ -16,10 +16,14 @@ export class BoardsWrapper extends React.Component {
 			modalIsVisible: false,
 			isBoardForm: false,
 			isDetailView: false,
+			isLoginForm: false,
 			messageModel: {title: 'title', subject: 'subject'},
 			boardModel: {title: 'title'},
+			loginModel: {fieldOne: 'username', fieldTwo: 'password'},
 			title: '',
 			subject: '',
+			username: '',
+			password: '',
 			messageToSend: {},
 			boardToSend: {}
 		}
@@ -38,22 +42,37 @@ export class BoardsWrapper extends React.Component {
 				saveObject={(e, id) => this.saveObject(e, id)}
 				handleModalChanges={(e) => this.handleModalChanges(e)}
 				addBoard={(e) => this.addBoard(e)}
+				signIn={(e) => this.signIn(e)}
 				messageModel={this.state.messageModel} 
 				boardModel={this.state.boardModel} 
 				messageToSend={this.state.messageToSend}
 				boardToSend={this.state.boardToSend}
 				currentBoardId={this.state.currentBoardId}
 				isDetailView={this.state.isDetailView}
-				isBoardForm={this.state.isBoardForm}/>
+				isBoardForm={this.state.isBoardForm}
+				loginModel={this.state.loginModel}
+				isLoginForm={this.state.isLoginForm}/>
 		);
 		return (
-			<div className="boardsWrapper">
-				{list}
-				<button 
-					className="addBoardButton"
-					onClick={() => this.openBoardForm()}
-					>Add Board
-				</button>
+			<div className="mainContainer">
+				<div className="siteHeader">
+					<button 
+						className="loginButton"
+						onClick={() => this.openLoginForm()}>
+						Loggin
+					</button>
+					<div className="titleApp">
+						<h1>Boards App!</h1>
+					</div>
+				</div>
+				<div className="boardsWrapper">
+					{list}
+					<button 
+						className="addBoardButton"
+						onClick={() => this.openBoardForm()}
+						>Add Board
+					</button>
+				</div>
 			</div>
 		);
 	}
@@ -63,7 +82,14 @@ export class BoardsWrapper extends React.Component {
 	closeModal() {
 		this.setState({
 			modalIsVisible : !this.state.modalIsVisible,
-			isBoardForm : false
+			isBoardForm : false,
+			isLoginForm: false
+		})
+	}
+	openLoginForm() {
+		this.setState({
+			modalIsVisible : true,
+			isLoginForm : true
 		})
 	}
 	openModal(i) { 
@@ -153,6 +179,16 @@ export class BoardsWrapper extends React.Component {
 		this.setState({
 			modalIsVisible : true,
 			isBoardForm : true
+		});
+	}
+
+	//User signIn Implementation
+	signIn(e) {
+		e.preventDefault();
+		console.log('trying sign in with', this.state.username, this.state.password);
+		this.setState({
+			modalIsVisible : false,
+			isLoginForm : false
 		});
 	}
 }
