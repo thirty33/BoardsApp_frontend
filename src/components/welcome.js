@@ -14,11 +14,14 @@ export class BoardsWrapper extends React.Component {
 			currentBoardId: 1,
 			userId: 1,
 			modalIsVisible: false,
+			isBoardForm: false,
+			isDetailView: false,
 			messageModel: {title: 'title', subject: 'subject'},
+			boardModel: {title: 'title'},
 			title: '',
 			subject: '',
 			messageToSend: {},
-			isDetailView: false
+			boardToSend: {}
 		}
 	}
 	boardsList() {
@@ -34,17 +37,21 @@ export class BoardsWrapper extends React.Component {
 				closeModal={() => this.closeModal()}
 				saveObject={(e, id) => this.saveObject(e, id)}
 				handleModalChanges={(e) => this.handleModalChanges(e)}
+				addBoard={(e) => this.addBoard(e)}
 				messageModel={this.state.messageModel} 
+				boardModel={this.state.boardModel} 
 				messageToSend={this.state.messageToSend}
+				boardToSend={this.state.boardToSend}
 				currentBoardId={this.state.currentBoardId}
-				isDetailView={this.state.isDetailView}/>
+				isDetailView={this.state.isDetailView}
+				isBoardForm={this.state.isBoardForm}/>
 		);
 		return (
 			<div className="boardsWrapper">
 				{list}
 				<button 
 					className="addBoardButton"
-					onClick={() => this.addBoard()}
+					onClick={() => this.openBoardForm()}
 					>Add Board
 				</button>
 			</div>
@@ -53,7 +60,12 @@ export class BoardsWrapper extends React.Component {
 	render() {
 		return this.boardsList();
 	}
-	closeModal() { this.setState({modalIsVisible : !this.state.modalIsVisible})}
+	closeModal() {
+		this.setState({
+			modalIsVisible : !this.state.modalIsVisible,
+			isBoardForm : false
+		})
+	}
 	openModal(i) { 
 		const boards = this.state.boards.slice();
 		const currentBoard = boards[i-1]; 
@@ -61,14 +73,16 @@ export class BoardsWrapper extends React.Component {
 			isDetailView : false,
 			messageToSend : {},
 			currentBoardId : currentBoard.id,
-			modalIsVisible : true
+			modalIsVisible : true,
+			isBoardForm : false
 		})
 	}
 	addNewMessageToBoard(i) {
 		
 		const boards = this.state.boards.slice();
 		const currentBoard = boards[i-1]; 
-		const newMessageId = currentBoard.messages[currentBoard.messages.length - 1].id + 1;
+		const newMessageId = currentBoard.messages.length > 0 ? 
+			currentBoard.messages[currentBoard.messages.length - 1].id + 1 : 1;
 		var newMessage = 
 		{
 			id:newMessageId,
@@ -94,13 +108,17 @@ export class BoardsWrapper extends React.Component {
 		this.addNewMessageToBoard(id);
 		e.preventDefault();
 	}
-	addBoard() {
+	addBoard(e) {
+		e.preventDefault();
 		const boards = this.state.boards.slice();
-		const newBoardId = boards.length + 1;
-		const newBoard = {id: newBoardId,title:'board_title_new', messages: []};
+		const newBoardId = boards[boards.length - 1].id + 1;
+		const newBoard = {id: newBoardId,title:this.state.title, messages: [], isPrivate: true, ownerId: 1};
 		boards.push(newBoard);
+		console.log('this is new board id', newBoard.id );
 		this.setState({
-			boards: boards
+			boards: boards,
+			isBoardForm : false,
+			modalIsVisible : false,
 		});
 	}
 	deleteMessage(i) {
@@ -127,6 +145,14 @@ export class BoardsWrapper extends React.Component {
 			messageToSend : {title : currentMessage.message_title, subject : currentMessage.message_subject},
 			isDetailView : true,
 			modalIsVisible : true
+		});
+	}
+
+	//Board Implementation
+	openBoardForm() {
+		this.setState({
+			modalIsVisible : true,
+			isBoardForm : true
 		});
 	}
 }

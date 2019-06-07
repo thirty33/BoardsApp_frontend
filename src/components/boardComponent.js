@@ -1,5 +1,6 @@
 import React from 'react';
-import {CustomDetailView} from './CustomDetailView';
+import {MessageDetailView} from './messageDetailView';
+import {BoardForm} from './boardModalForm';
 import '../style/boardstyle.css';
 
 function Message(props) {
@@ -47,16 +48,25 @@ export function Board(props) {
 					}
 				</div>
 			</div>
-			{props.modalIsVisible &&
-				<CustomDetailView 
-					modal={{propertyOne: 'Joel Gustavo'}}
-					boardId={props.currentBoardId}
-					closeView={() => props.closeModal()}
-					saveObject={(e, id) => props.saveObject(e, id)}
-					handleInputChange={(e) => props.handleModalChanges(e)}
-					messageModel={props.messageModel}
-					messageToSend={props.messageToSend}
-					isDetailView={props.isDetailView}/>
+			{(props.modalIsVisible && !props.isBoardForm) &&
+			<MessageDetailView 
+				modal={{propertyOne: 'Joel Gustavo'}}
+				boardId={props.currentBoardId}
+				closeView={() => props.closeModal()}
+				saveObject={(e, id) => props.saveObject(e, id)}
+				handleInputChange={(e) => props.handleModalChanges(e)}
+				messageModel={props.messageModel}
+				messageToSend={props.messageToSend}
+				isDetailView={props.isDetailView}/>
+			}
+			{(props.modalIsVisible && props.isBoardForm) &&
+			<BoardForm 
+				closeView={() => props.closeModal()}
+				boardModel={props.boardModel}
+				boardToSend={props.boardToSend}
+				handleInputChange={(e) => props.handleModalChanges(e)}
+				saveObject={(e) => props.addBoard(e)}
+				/>
 			}
 		</div>
 	);

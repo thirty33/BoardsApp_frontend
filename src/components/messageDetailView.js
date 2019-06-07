@@ -1,7 +1,7 @@
 import React from 'react';
 import '../style/modalstyle.css';
 
-export function CustomDetailView(props) {
+export function MessageDetailView(props) {
 	return (
 		<div className="modalMask">
 			<div className="modalWrapper">
